@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <!-- Google Font Link -->
+    <link href='https://fonts.googleapis.com/css?family=Eagle Lake' rel='stylesheet'>
+
+    <!--Bootstrap CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <title>repl.it</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+
+    <style>
+      body {
+        background-color: rgb(166,218,149);
+        font-family: Georgia, serif;
+      }
+      h1 {
+        color: #efffeb;
+        text-align: center;
+      }
+      b {
+        color: #a9a6ad;
+        font-size: 18px;
+        width: 100%;
+        position: fixed;
+        text-align: center;
+      }
+      .btn-group {
+        margin-top: 10px;
+      }
+      .choiceBtn {
+        background-color: #729968;
+        color: #efffeb;
+        border-color: #507048;
+        border-radius: 4px;
+        padding: 5px;
+        font-size: 13px;
+        font-family: verdona;
+      }
+      .btn-lg {
+        background-color: #729968;
+        color: #efffeb;
+        font-size: 25px;
+        width: 55px;
+        border: none;
+        /*Positioning*/
+        position: absolute;
+        top: 83%;
+        left: 87%
+      }
+      #firstPicture {
+        margin-left: 20px;
+        margin-top: 25px;
+        width: 160px;
+        height: 160px;
+        float: left;
+        text-align: center;
+      }
+      #secondPicture {
+        margin-top: 30px;
+        width: 170px;
+        height: 130px;
+        float: left;
+        text-align: center;
+      }
+      #thirdPicture {
+        margin-top: 25px;
+        padding-left: 30px;
+        width: 160px;
+        height: 160px;
+        float: left;
+      }
+      #scoreBoard {
+        margin-top: 170px;
+        margin-right: auto;
+        margin-left: auto;
+        height: 75px;
+        width: 190px;
+        border: 5px solid black;
+      }
+      .header {
+        height: 28px;
+        width: 92px;
+        float: left;
+        border: 5px solid black;
+        margin-top: -15px;
+        margin-left: -2px;
+        text-align: center;
+        font-weight: bold;
+      }
+      #divider {
+        margin-top: 23px;
+        height: 42px;
+        width: 93px;
+        border-right: 8px solid black;
+        padding-top: 10px;
+        padding-left: 5px;
+      }
+      #divider2 {
+        margin-top: 23px;
+        height: 57px;
+        width: 90px;
+        padding-top: 10px;
+        padding-left: 5px;
+        /*Positioning*/
+        position: absolute;
+        top: 75%;
+        left: 51%;
+      }
+      .point {
+        height: 20px;
+        width: 13px;
+        border-right: 4px solid red;
+        float: left;
+      }
+      .strikeThrough {
+        width: 53px;
+        height: 10px;
+        border-top: 4px solid red;
+        margin-left: 5px;
+        margin-top: 8px;
+      }
+      #signal {
+        color: white;
+        font-size: 35px;
+        font-weight: bold;
+        padding-top: 10px;
+        padding-left: 3px;
+      }
+      #symbol1 {
+        font-size: 100px;
+      }
+      #symbol2 {
+        font-size: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>✧ Rock Paper Scissors ✧</h1>
+    <b>Choose number of rounds:</b>
+    <br>
+
+    <!-- Choose # of Rounds -->
+    <div class="text-center">
+      <div class="btn-group">
+        <button onclick="roundNums(this.id)" id="1/1" class="btn choiceBtn">Best 1 out of 1</button>
+        <button onclick="roundNums(this.id)" id="2/3" class="btn choiceBtn">Best 2 out of 3</button>
+        <button onclick="roundNums(this.id)" id="5/7" class="btn choiceBtn">Best 5 out of 7</button>
+      </div>
+    </div>
+
+    <!--Picture Divs-->
+    <div id="firstPicture">
+      <p id="symbol1"></p>
+    </div>
+
+    <div id="secondPicture">
+      <p id="signal"></p>
+    </div>
+
+    <div id="thirdPicture">
+      <p id="symbol2"></p>
+    </div>
+
+    <!--Scoreboard-->
+    <div id="scoreBoard">
+      <div class="header">Player</div>
+      <div class="header">Computer</div>
+      <div id="divider">
+        <div class="point" id="p1"></div>
+        <div class="point" id="p2"></div>
+        <div class="point" id="p3"></div>
+        <div class="point" id="p4"></div>
+        <div class="strikeThrough" id="p5"></div>
+      </div>
+      <div id="divider2">
+        <div class="point" id="c1"></div>
+        <div class="point" id="c2"></div>
+        <div class="point" id="c3"></div>
+        <div class="point" id="c4"></div>
+        <div class="strikeThrough" id="c5"></div>
+      </div>
+    </div>
+
+    <!--Instructions Modal-->
+    <div class="container">
+      <!-- Modal Button -->
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modalInstructions">?</button>
+      <!-- Modal Contents-->
+      <div class="modal fade" id="modalInstructions" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Instructions:</h4>
+            </div>
+            <div class="modal-body">
+              <p>Press a number key in order to choose rock, paper or scissors before the word "Shoot!" appears on the screen. Once the word appears, both yours and the computer's choices will be revealed.</p>
+              <div class="row">
+                <div class="col-sm-4" style="background-color:#a6da95;">1 = Rock</div>
+                <div class="col-sm-4" style="background-color:#dfffd7;">2 = Paper</div>
+                <div class="col-sm-4" style="background-color:#a6da95;">3 = Scissors</div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //Shows modal as soon as game is run
+      window.onload =  $("#modalInstructions").modal('show');
+
+      //Hide Scores
+      var pc = ["p1", "p2", "p3", "p4", "p5", "c1", "c2", "c3", "c4", "c5"];
+      for (x=0;x <10;x++) {
+        document.getElementById(pc[x]).style.visibility = "hidden";
+      }
+
+      var clicked;
+      function roundNums(id) {
+        document.getElementById("1/1").disabled = true;
+        document.getElementById("2/3").disabled = true;
+        document.getElementById("5/7").disabled = true;
+        document.getElementById(id).style.background = "black";
+        clicked = id;
+        startGame();
+      }
+      var tryAgain = false;   
+      function startGame() {
+        setTimeout(countDown, 500);         window.addEventListener("keypress", userChoice);
+        setTimeout(countDown, 1500);
+        setTimeout(countDown, 2500);
+        setTimeout(countDown, 3500);
+        if (tryAgain == true) {
+          setTimeout(countDown, 4500);
+        }
+      }
+    
+      function countDown() { 
+        var timeIsUp = false;
+        window.addEventListener("keypress", userChoice);
+        if (document.getElementById("signal").innerText != "You Win!" && document.getElementById("signal").innerText != "You Lose!") {
+          document.getElementById("firstPicture").style.visibility = "hidden";
+          document.getElementById("symbol2").innerText = "";
+        } 
+
+        switch (document.getElementById("signal").innerText) {
+          case "":
+          case "Tie!":
+          case "Try Again!":
+            document.getElementById("signal").innerText = "Rock";
+              break;
+          case "Rock":
+            document.getElementById("signal").innerText = "Paper";
+              break;
+          case "Paper":
+            document.getElementById("signal").innerText = "Scissors";
+              break;
+          case "Scissors":
+            document.getElementById("signal").innerText = "Shoot!";
+            timeIsUp = true;
+              
+        }
+        if (timeIsUp == true) {
+          window.removeEventListener("keypress", userChoice);
+          if (key == undefined) {
+            setTimeout(() => { document.getElementById("signal").innerText = "Try Again!"; }, 1000);
+            tryAgain = true;
+            startGame();
+          } else {
+            document.getElementById("firstPicture").style.visibility = "visible";
+            computerChoice();
+            key = undefined;
+          }
+        }
+      }
+      var key;
+      function userChoice(keyPressed) {
+        key = keyPressed.key;
+        if(key=="1") document.getElementById("symbol1").innerText = "✊";
+        if(key=="2") document.getElementById("symbol1").innerText = "✋";
+        if(key=="3") document.getElementById("symbol1").innerText = "✌";
+      }
+      var randomChoice;
+      function computerChoice() {
+        randomChoice = Math.floor(Math.random() * 3) + 1;
+        if (randomChoice == 1) {
+          document.getElementById("symbol2").innerText = "✊";
+        } else if (randomChoice == 2) {
+          document.getElementById("symbol2").innerText = "✋";
+        } else {
+          document.getElementById("symbol2").innerText = "✌";
+        }
+        whoWins();
+      }
+      var pScore = 0;
+      var cScore = 5;
+      function whoWins() {
+        if (key == 1 && randomChoice == 3 || key == 2 && randomChoice == 1 || key == 3 && randomChoice == 2) {
+          document.getElementById(pc[pScore]).style.visibility = "visible";
+          //Decides whether or not run another round of the game
+          if (clicked == "2/3" && pScore != 1 || clicked == "5/7" && pScore != 4) {
+            pScore++;
+            restartGame();
+          } else {
+            document.getElementById("signal").innerText = "You Win!";
+            //Confetti gif courtesy of ACEGIF.com
+            document.body.style.background = "url('https://acegif.com/wp-content/gif/confetti-40.gif'), rgb(166,218,149)";
+            //Audio courtesy of ZAPSPLAT
+            var music = new Audio("https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-four/cartoon_success_fanfair.mp3?_=1' type='audio/mpeg");
+            music.play();
+          }
+        } else if (randomChoice == 1 && key == 3 || randomChoice == 2 && key == 1 || randomChoice == 3 && key == 2) {
+          document.getElementById(pc[cScore]).style.visibility = "visible";
+          //Decides whether or not run another round of the game
+          if (clicked == "2/3" && cScore != 6 || clicked == "5/7" && cScore != 9) {
+            cScore++;
+            restartGame();
+          } else {
+            document.getElementById("signal").innerText = "You Lose!";
+          }
+        } else {
+          document.getElementById("signal").innerText = "Tie!";
+          tryAgain = true;
+          restartGame();
+        }
+      }
+      function restartGame() {
+        randomChoice = "";
+        setTimeout(() => { document.getElementById("signal").innerText = ""; document.getElementById("symbol1").innerText = ""; document.getElementById("symbol2").innerText = ""; }, 1500);
+        setTimeout(startGame, 1000);
+      }
+
+    </script>
+  </body>
+</html>
